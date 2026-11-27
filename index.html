@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>烏山頭水庫｜朱韻婷襄理拆光電板</title>
+  <meta name="description" content="烏山頭水庫任務地圖小遊戲。選擇光電板區域並完成拆除挑戰。">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="eyebrow">線上任務地圖</div>
+        <h1>朱韻婷襄理拆光電板</h1>
+        <p class="subtitle">地點：<strong>烏山頭水庫</strong>｜點亮任務、逐區拆除、完成回報</p>
+      </div>
+      <div class="topbar-actions">
+        <button class="pill active" type="button">應援地圖</button>
+        <button class="pill" type="button">任務資訊</button>
+      </div>
+    </header>
+
+    <main class="main-layout">
+      <section class="map-panel glass-card">
+        <div class="map-header">
+          <div>
+            <div class="section-label">MISSION MAP</div>
+            <h2>烏山頭水庫拆除點位</h2>
+            <p>點地圖上的亮點，選擇要拆除的光電板區域。</p>
+          </div>
+          <div class="map-summary">
+            <div class="summary-box">
+              <span>完成區數</span>
+              <strong id="doneCount">0 / 6</strong>
+            </div>
+            <div class="summary-box">
+              <span>總進度</span>
+              <strong id="totalPercent">0%</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-stage" id="mapStage">
+          <div class="sky-beam beam-a"></div>
+          <div class="sky-beam beam-b"></div>
+          <div class="reservoir-map">
+            <div class="location-chip">地點：烏山頭水庫</div>
+            <div class="map-label map-label-main">烏山頭水庫</div>
+            <div class="map-label map-label-sub">WUSHANTOU RESERVOIR</div>
+
+            <div class="water-shape"></div>
+
+            <div class="panel-cluster cluster-a" id="cluster0"></div>
+            <div class="panel-cluster cluster-b" id="cluster1"></div>
+            <div class="panel-cluster cluster-c" id="cluster2"></div>
+            <div class="panel-cluster cluster-d" id="cluster3"></div>
+            <div class="panel-cluster cluster-e" id="cluster4"></div>
+            <div class="panel-cluster cluster-f" id="cluster5"></div>
+
+            <button class="map-node active" data-zone="0" style="left:34%; top:26%;">
+              <span class="node-pulse"></span>
+              <span class="node-name">A 區</span>
+            </button>
+            <button class="map-node" data-zone="1" style="left:66%; top:28%;">
+              <span class="node-pulse"></span>
+              <span class="node-name">B 區</span>
+            </button>
+            <button class="map-node" data-zone="2" style="left:22%; top:47%;">
+              <span class="node-pulse"></span>
+              <span class="node-name">C 區</span>
+            </button>
+            <button class="map-node" data-zone="3" style="left:51%; top:50%;">
+              <span class="node-pulse"></span>
+              <span class="node-name">D 區</span>
+            </button>
+            <button class="map-node" data-zone="4" style="left:73%; top:59%;">
+              <span class="node-pulse"></span>
+              <span class="node-name">E 區</span>
+            </button>
+            <button class="map-node" data-zone="5" style="left:44%; top:74%;">
+              <span class="node-pulse"></span>
+              <span class="node-name">F 區</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <section class="hero-card glass-card">
+          <div class="hero-photo-wrap">
+            <img src="assets/avatar_crop.png" alt="角色視覺參考" class="hero-photo">
+            <div class="hero-glow"></div>
+          </div>
+          <div class="hero-copy">
+            <div class="section-label">角色資訊</div>
+            <h3>朱韻婷襄理</h3>
+            <p>本版角色改成更貼近你提供照片的長黑髮、藍色上衣、黑色長褲與球鞋形象。</p>
+          </div>
+        </section>
+
+        <section class="tool-card glass-card">
+          <div class="tool-visual">
+            <img src="assets/wrench_crop.png" alt="扳手視覺參考" class="tool-image">
+          </div>
+          <div>
+            <div class="section-label">任務裝備</div>
+            <h3>光束扳手</h3>
+            <p>每次啟動會對指定區域輸出光束能量，累積 5 次後完成拆除。</p>
+          </div>
+        </section>
+
+        <section class="control-card glass-card">
+          <div class="section-label">目前任務</div>
+          <h3 id="zoneTitle">A 區｜拆除任務</h3>
+          <p id="zoneDesc">北側第一區，先從外圍光電板群開始拆除。</p>
+
+          <div class="progress-block">
+            <div class="progress-meta">
+              <span>區域進度</span>
+              <strong id="zoneProgressText">0 / 5</strong>
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar" id="zoneProgressBar"></div>
+            </div>
+          </div>
+
+          <div class="button-row">
+            <button class="primary-btn" id="actionBtn" type="button">⚡ 啟動拆除</button>
+            <button class="ghost-btn" id="resetBtn" type="button">重新開始</button>
+          </div>
+
+          <div class="status-box" id="statusBox">請先選擇地圖亮點，並對該區連續執行拆除。</div>
+        </section>
+
+        <section class="log-card glass-card">
+          <div class="section-label">任務紀錄</div>
+          <ul id="logList" class="log-list"></ul>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <div class="complete-overlay hidden" id="completeOverlay">
+    <div class="complete-card">
+      <div class="complete-badge">MISSION COMPLETE</div>
+      <h2>烏山頭水庫拆除任務完成</h2>
+      <p>所有虛構光電板區域已完成拆除。地點：<strong>烏山頭水庫</strong></p>
+      <div class="complete-stats">
+        <div>
+          <span>完成區域</span>
+          <strong>6 / 6</strong>
+        </div>
+        <div>
+          <span>總回合</span>
+          <strong id="finalSteps">0</strong>
+        </div>
+      </div>
+      <div class="complete-actions">
+        <button class="primary-btn" id="replayBtn" type="button">再玩一次</button>
+        <button class="ghost-btn" id="closeOverlayBtn" type="button">先關閉</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
